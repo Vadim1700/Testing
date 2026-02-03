@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Сигналы</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Рамка -->
+  <div class="frame" id="signalBlock">
+    <div class="loading">Загрузка...</div>
+  </div>
+
+  <!-- Кнопки -->
+  <div class="buttons">
+    <button onclick="getSignal()">Получить сигнал</button>
+    <button onclick="openModal()">Назад</button>
+  </div>
+
+  <!-- Модальное окно -->
+  <div class="modal" id="signalModal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">×</span>
+      <h3>Управление сигналами</h3>
+      <input type="number" id="signalX" placeholder="Введите число для X" />
+      <input type="number" id="signalM" placeholder="Введите число для M" />
+      <button onclick="addSignal()">Добавить сигнал</button>
+      <ul class="signal-list" id="signalList"></ul>
+    </div>
+  </div>
+
+  <script>
+    let signals = [];
+
+    function openModal() {
+      document.getElementById('signalModal').style.display = 'flex';
+      renderSignals();
+    }
+
+    function closeModal() {
+      document.getElementById('signalModal').style.display = 'none';
+    }
+
+    function addSignal() {
+      const xVal = document.getElementById('signalX').value.trim();
+      const mVal = document.getElementById('signalM').value.trim();
+      if (xVal && mVal) {
+        signals.push({x: xVal, m: mVal});
+        document.getElementById('signalX').value = '';
+        document.getElementById('signalM').value = '';
+        renderSignals();
+      }
+    }
+
+    function deleteSignal(index) {
+      signals.splice(index, 1);
+      renderSignals();
+    }
+
+    function getSignal() {
+      const block = document.getElementById('signalBlock');
+      block.innerHTML = `<div class="loading">Загрузка...</div>`;
+      setTimeout(() => {
+        if (signals.length > 0) {
+          const s = signals.shift();
+          block.innerHTML = `
+            <div class="signal-text">
+              ${('x' + s.x).split('').map((ch,i) => `<span class="letter ${i%2===0?'grow':'shrink'}">${ch}</span>`).join('')}
+            </div>
+            <div class="signal-sub">
+              ${(`${s.m}M`).split('').map((ch,i) => `<span class="letter-sub ${i%2===0?'grow':'shrink'}">${ch}</span>`).join('')}
+            </div>
+          `;
+          renderSignals();
+        } else {
+          block.innerHTML = `
+            <div class="signal-text"><span class="letter">x---</span></div>
+            <div class="signal-sub"><span class="letter-sub">---M</span></div>
+          `;
+        }
+      }, 1500);
+    }
+
+    function renderSignals() {
+      const list = document.getElementById('signalList');
+      list.innerHTML = '';
+      signals.forEach((s, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <span>x${s.x} / ${s.m}M</span>
+          <button class="delete-btn" onclick="deleteSignal(${index})">×</button>
+        `;
+        list.appendChild(li);
+      });
+    }
+  </script>
+
+</body>
+</html>
