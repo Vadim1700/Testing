@@ -53,11 +53,12 @@ body {
 .signal-text, .signal-sub {
   display: flex;
   justify-content: center;
-  gap: 5px;
+  gap: 10px;
+  margin-bottom: 30px; /* добавили отступ между X и M */
 }
 
 .letter {
-  font-size: 3em;
+  font-size: 4em;
   font-weight: 800;
   color: #ff4444;
   text-shadow: 0 0 10px #ff4444, 0 0 20px #ff4444;
