@@ -194,20 +194,32 @@ input[type="number"] {
   50% { opacity: 0.3; }
 }
 
+.game-container {
+  display: flex;
+  flex-direction: column;   /* элементы идут сверху вниз */
+  align-items: center;      /* центрируем по горизонтали */
+  justify-content: center;  /* центрируем по вертикали */
+  text-align: center;
+}
+
 .logo {
-  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;  /* центрируем картинку внутри блока */
+  width: 100%;
 }
 
 .logo img {
-  max-width: 200px;
+  width: 80%;        /* базовый размер для ПК */
+  max-width: 400px;
   height: auto;
   display: block;
   margin: 0 auto;
 }
 
-/* Адаптация под телефон */
+/* На телефоне */
 @media (max-width: 768px) {
   .logo img {
-    max-width: 150px;
+    width: 95%;       /* почти вся ширина экрана */
+    max-width: 500px; /* можно увеличить максимум */
   }
 }
