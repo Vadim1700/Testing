@@ -193,3 +193,21 @@ input[type="number"] {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.3; }
 }
+
+.logo {
+  margin-bottom: 15px;
+}
+
+.logo img {
+  max-width: 200px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Адаптация под телефон */
+@media (max-width: 768px) {
+  .logo img {
+    max-width: 150px;
+  }
+}
